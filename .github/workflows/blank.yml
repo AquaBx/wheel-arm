@@ -11,8 +11,8 @@ jobs:
       # Ensure that a wheel builder finishes even if another fails
       fail-fast: false
       matrix:
-        buildplat: [[ubuntu-latest, manylinux_x86_64],[ubuntu-latest, musllinux_x86_64],[macos-latest, macosx_*],[windows-latest, win_amd64],[windows-latest, win32],[windows-latest, win_arm64]]
-        python: ["cp39", "cp310", "cp311", "cp312", "pp39"]
+        buildplat: [[windows-latest, win_amd64],[windows-latest, win32],[windows-latest, win_arm64]]
+        python: ["cp311", "cp312"]
     steps:
 
       - uses: actions/checkout@v3
