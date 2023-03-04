@@ -12,12 +12,13 @@ jobs:
       fail-fast: false
       matrix:
         buildplat:
-          - [ubuntu-latest, manylinux_x86_64]
-          - [ubuntu-latest, musllinux_x86_64]
-          - [macos-latest, macosx_*]
-          - [windows-latest, win_amd64]
-          - [windows-latest, win32]
-          - [windows-latest, win_arm64]
+          - [ubuntu-latest, x86_64]
+          - [ubuntu-latest, aarch64 ]
+          - [macos-latest, x86_64]
+          - [macos-latest, arm64]
+          - [windows-latest, amd64]
+          - [windows-latest, x86]
+          - [windows-latest, arm64]
         python: ["cp311", "cp312"]
     steps:
 
@@ -31,14 +32,11 @@ jobs:
       - name: Install cibuildwheel
         run: python -m pip install cibuildwheel==2.12.0
 
-      - name: Build wheels
-        run: python -m cibuildwheel --package-dir numpy/numpy 
+      - name: Go to package
+        run: cd numpy/numpy
       
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.12.0
-        env:
-          CIBW_BUILD: ${{ matrix.python }}-${{ matrix.buildplat[1] }}
-          package-dir: numpy/numpy
+        run: python -m cibuildwheel --arch ${{ matrix.buildplat[1] }}
 
       - uses: actions/upload-artifact@v3
         with:
