@@ -32,6 +32,7 @@ jobs:
         uses: pypa/cibuildwheel@v2.12.0
         env:
           CIBW_BUILD: ${{ matrix.python }}-${{ matrix.buildplat[1] }}
+          package_dir: numpy/numpy
 
       - uses: actions/upload-artifact@v3
         with:
