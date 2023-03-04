@@ -28,11 +28,17 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Install cibuildwheel
+        run: python -m pip install cibuildwheel==2.12.0
+
+      - name: Build wheels
+        run: python -m cibuildwheel --package-dir numpy/numpy 
+      
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.12.0
         env:
           CIBW_BUILD: ${{ matrix.python }}-${{ matrix.buildplat[1] }}
-          package_dir: numpy/numpy
+          package-dir: numpy/numpy
 
       - uses: actions/upload-artifact@v3
         with:
